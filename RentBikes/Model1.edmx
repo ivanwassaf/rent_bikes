@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RentBikesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="150" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="price_id" />
+          </Key>
+          <Property Name="price_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rental_price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="hours" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="rental_id" />
+          </Key>
+          <Property Name="rental_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from" Type="datetime" Nullable="false" />
+          <Property Name="to" Type="datetime" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+          <Property Name="station_id" Type="int" Nullable="false" />
+          <Property Name="rentaltype_id" Type="int" Nullable="false" />
+          <Property Name="subtotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rental_Detail">
+          <Key>
+            <PropertyRef Name="rentaldetail_id" />
+          </Key>
+          <Property Name="rentaldetail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rental_id" Type="int" Nullable="false" />
+          <Property Name="vehicle_id" Type="int" Nullable="false" />
+          <Property Name="hours" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="price_id" Type="int" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rental_Type">
+          <Key>
+            <PropertyRef Name="rentaltype_id" />
+          </Key>
+          <Property Name="rentaltype_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="discount" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="state_id" />
+          </Key>
+          <Property Name="state_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="station_id" />
+          </Key>
+          <Property Name="station_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="150" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="vehicle_id" />
+          </Key>
+          <Property Name="vehicle_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="vehicletype_id" Type="int" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+          <Property Name="serie" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle_Type">
+          <Key>
+            <PropertyRef Name="vehicletype_id" />
+          </Key>
+          <Property Name="vehicletype_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Rental_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Detail_Price">
+          <End Role="Price" Type="Self.Price" Multiplicity="1" />
+          <End Role="Rental_Detail" Type="Self.Rental_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="price_id" />
+            </Principal>
+            <Dependent Role="Rental_Detail">
+              <PropertyRef Name="price_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Detail_Rental">
+          <End Role="Rental" Type="Self.Rental" Multiplicity="1" />
+          <End Role="Rental_Detail" Type="Self.Rental_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="rental_id" />
+            </Principal>
+            <Dependent Role="Rental_Detail">
+              <PropertyRef Name="rental_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_RentalType">
+          <End Role="Rental_Type" Type="Self.Rental_Type" Multiplicity="1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental_Type">
+              <PropertyRef Name="rentaltype_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="rentaltype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Station">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="station_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="station_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Station_State">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_State">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_VehicleType">
+          <End Role="Vehicle_Type" Type="Self.Vehicle_Type" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Type">
+              <PropertyRef Name="vehicletype_id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="vehicletype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentBikesModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rental" EntityType="Self.Rental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rental_Detail" EntityType="Self.Rental_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rental_Type" EntityType="Self.Rental_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle_Type" EntityType="Self.Vehicle_Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Rental_Client" Association="Self.FK_Rental_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Detail_Price" Association="Self.FK_Rental_Detail_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Rental_Detail" EntitySet="Rental_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Detail_Rental" Association="Self.FK_Rental_Detail_Rental">
+            <End Role="Rental" EntitySet="Rental" />
+            <End Role="Rental_Detail" EntitySet="Rental_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_RentalType" Association="Self.FK_Rental_RentalType">
+            <End Role="Rental_Type" EntitySet="Rental_Type" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Station" Association="Self.FK_Rental_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Station_State" Association="Self.FK_Station_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Station" EntitySet="Station" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_State" Association="Self.FK_Vehicle_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_VehicleType" Association="Self.FK_Vehicle_VehicleType">
+            <End Role="Vehicle_Type" EntitySet="Vehicle_Type" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentBikesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Rental_Detail">
+          <Key>
+            <PropertyRef Name="rentaldetail_id" />
+          </Key>
+          <Property Name="rentaldetail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rental_id" Type="Int32" Nullable="false" />
+          <Property Name="vehicle_id" Type="Int32" Nullable="false" />
+          <Property Name="hours" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="price_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Price" Relationship="RentBikesModel.FK_Rental_Detail_Price" FromRole="Rental_Detail" ToRole="Price" />
+          <NavigationProperty Name="Rental" Relationship="RentBikesModel.FK_Rental_Detail_Rental" FromRole="Rental_Detail" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="Rental_Type">
+          <Key>
+            <PropertyRef Name="rentaltype_id" />
+          </Key>
+          <Property Name="rentaltype_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="discount" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Rental" Relationship="RentBikesModel.FK_Rental_RentalType" FromRole="Rental_Type" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="state_id" />
+          </Key>
+          <Property Name="state_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Station" Relationship="RentBikesModel.FK_Station_State" FromRole="State" ToRole="Station" />
+          <NavigationProperty Name="Vehicle" Relationship="RentBikesModel.FK_Vehicle_State" FromRole="State" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="station_id" />
+          </Key>
+          <Property Name="station_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="State" Relationship="RentBikesModel.FK_Station_State" FromRole="Station" ToRole="State" />
+          <NavigationProperty Name="Rental" Relationship="RentBikesModel.FK_Rental_Station" FromRole="Station" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="vehicle_id" />
+          </Key>
+          <Property Name="vehicle_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="vehicletype_id" Type="Int32" Nullable="false" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <Property Name="serie" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="State" Relationship="RentBikesModel.FK_Vehicle_State" FromRole="Vehicle" ToRole="State" />
+          <NavigationProperty Name="Vehicle_Type" Relationship="RentBikesModel.FK_Vehicle_VehicleType" FromRole="Vehicle" ToRole="Vehicle_Type" />
+        </EntityType>
+        <EntityType Name="Vehicle_Type">
+          <Key>
+            <PropertyRef Name="vehicletype_id" />
+          </Key>
+          <Property Name="vehicletype_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle" Relationship="RentBikesModel.FK_Vehicle_VehicleType" FromRole="Vehicle_Type" ToRole="Vehicle" />
+        </EntityType>
+        <EntityContainer Name="RentBikesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rental_Detail" EntityType="Self.Rental_Detail" />
+          <EntitySet Name="Rental_Type" EntityType="Self.Rental_Type" />
+          <EntitySet Name="State" EntityType="Self.State" />
+          <EntitySet Name="Station" EntityType="Self.Station" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" />
+          <EntitySet Name="Vehicle_Type" EntityType="Self.Vehicle_Type" />
+          <AssociationSet Name="FK_Station_State" Association="RentBikesModel.FK_Station_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Station" EntitySet="Station" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_State" Association="RentBikesModel.FK_Vehicle_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_VehicleType" Association="RentBikesModel.FK_Vehicle_VehicleType">
+            <End Role="Vehicle_Type" EntitySet="Vehicle_Type" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+          <EntitySet Name="Client" EntityType="RentBikesModel.Client" />
+          <EntitySet Name="Price" EntityType="RentBikesModel.Price" />
+          <AssociationSet Name="FK_Rental_Detail_Price" Association="RentBikesModel.FK_Rental_Detail_Price">
+            <End Role="Price" EntitySet="Price" />
+            <End Role="Rental_Detail" EntitySet="Rental_Detail" />
+          </AssociationSet>
+          <EntitySet Name="Rental" EntityType="RentBikesModel.Rental" />
+          <AssociationSet Name="FK_Rental_Client" Association="RentBikesModel.FK_Rental_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Detail_Rental" Association="RentBikesModel.FK_Rental_Detail_Rental">
+            <End Role="Rental" EntitySet="Rental" />
+            <End Role="Rental_Detail" EntitySet="Rental_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_RentalType" Association="RentBikesModel.FK_Rental_RentalType">
+            <End Role="Rental_Type" EntitySet="Rental_Type" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Station" Association="RentBikesModel.FK_Rental_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Rental" EntitySet="Rental" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Station_State">
+          <End Type="RentBikesModel.State" Role="State" Multiplicity="1" />
+          <End Type="RentBikesModel.Station" Role="Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_State">
+          <End Type="RentBikesModel.State" Role="State" Multiplicity="1" />
+          <End Type="RentBikesModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="state_id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_VehicleType">
+          <End Type="RentBikesModel.Vehicle_Type" Role="Vehicle_Type" Multiplicity="1" />
+          <End Type="RentBikesModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Type">
+              <PropertyRef Name="vehicletype_id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="vehicletype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rental" Relationship="RentBikesModel.FK_Rental_Client" FromRole="Client" ToRole="Rental" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="price_id" />
+          </Key>
+          <Property Name="price_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rental_price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="hours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rental_Detail" Relationship="RentBikesModel.FK_Rental_Detail_Price" FromRole="Price" ToRole="Rental_Detail" />
+        </EntityType>
+        <Association Name="FK_Rental_Detail_Price">
+          <End Type="RentBikesModel.Price" Role="Price" Multiplicity="1" />
+          <End Type="RentBikesModel.Rental_Detail" Role="Rental_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price">
+              <PropertyRef Name="price_id" />
+            </Principal>
+            <Dependent Role="Rental_Detail">
+              <PropertyRef Name="price_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="rental_id" />
+          </Key>
+          <Property Name="rental_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="from" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="to" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <Property Name="station_id" Type="Int32" Nullable="false" />
+          <Property Name="rentaltype_id" Type="Int32" Nullable="false" />
+          <Property Name="subtotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="RentBikesModel.FK_Rental_Client" FromRole="Rental" ToRole="Client" />
+          <NavigationProperty Name="Rental_Detail" Relationship="RentBikesModel.FK_Rental_Detail_Rental" FromRole="Rental" ToRole="Rental_Detail" />
+          <NavigationProperty Name="Rental_Type" Relationship="RentBikesModel.FK_Rental_RentalType" FromRole="Rental" ToRole="Rental_Type" />
+          <NavigationProperty Name="Station" Relationship="RentBikesModel.FK_Rental_Station" FromRole="Rental" ToRole="Station" />
+        </EntityType>
+        <Association Name="FK_Rental_Client">
+          <End Type="RentBikesModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="RentBikesModel.Rental" Role="Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Detail_Rental">
+          <End Type="RentBikesModel.Rental" Role="Rental" Multiplicity="1" />
+          <End Type="RentBikesModel.Rental_Detail" Role="Rental_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental">
+              <PropertyRef Name="rental_id" />
+            </Principal>
+            <Dependent Role="Rental_Detail">
+              <PropertyRef Name="rental_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_RentalType">
+          <End Type="RentBikesModel.Rental_Type" Role="Rental_Type" Multiplicity="1" />
+          <End Type="RentBikesModel.Rental" Role="Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rental_Type">
+              <PropertyRef Name="rentaltype_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="rentaltype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rental_Station">
+          <End Type="RentBikesModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="RentBikesModel.Rental" Role="Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="station_id" />
+            </Principal>
+            <Dependent Role="Rental">
+              <PropertyRef Name="station_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentBikesModelStoreContainer" CdmEntityContainer="RentBikesEntities">
+          <EntitySetMapping Name="Rental_Detail">
+            <EntityTypeMapping TypeName="RentBikesModel.Rental_Detail">
+              <MappingFragment StoreEntitySet="Rental_Detail">
+                <ScalarProperty Name="price_id" ColumnName="price_id" />
+                <ScalarProperty Name="rentaldetail_id" ColumnName="rentaldetail_id" />
+                <ScalarProperty Name="rental_id" ColumnName="rental_id" />
+                <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+                <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rental_Type">
+            <EntityTypeMapping TypeName="RentBikesModel.Rental_Type">
+              <MappingFragment StoreEntitySet="Rental_Type">
+                <ScalarProperty Name="rentaltype_id" ColumnName="rentaltype_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="State">
+            <EntityTypeMapping TypeName="RentBikesModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Station">
+            <EntityTypeMapping TypeName="RentBikesModel.Station">
+              <MappingFragment StoreEntitySet="Station">
+                <ScalarProperty Name="station_id" ColumnName="station_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicle">
+            <EntityTypeMapping TypeName="RentBikesModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="vehicletype_id" ColumnName="vehicletype_id" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="serie" ColumnName="serie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicle_Type">
+            <EntityTypeMapping TypeName="RentBikesModel.Vehicle_Type">
+              <MappingFragment StoreEntitySet="Vehicle_Type">
+                <ScalarProperty Name="vehicletype_id" ColumnName="vehicletype_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="RentBikesModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Price">
+            <EntityTypeMapping TypeName="RentBikesModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="rental_price" ColumnName="rental_price" />
+                <ScalarProperty Name="price_id" ColumnName="price_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rental">
+            <EntityTypeMapping TypeName="RentBikesModel.Rental">
+              <MappingFragment StoreEntitySet="Rental">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="rentaltype_id" ColumnName="rentaltype_id" />
+                <ScalarProperty Name="station_id" ColumnName="station_id" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="rental_id" ColumnName="rental_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
