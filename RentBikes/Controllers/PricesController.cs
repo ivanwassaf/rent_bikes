@@ -11,7 +11,10 @@ namespace RentBikes.Controllers
 {
     public class PricesController : Controller
     {
-        private Ibll_Base<Price> Biz => new bll_Base<Price>();
+        private Ibll_Base<Price> Biz
+        {
+            get { return new bll_Base<Price>(); }
+        }
 
         // GET: Prices
         public ActionResult Index()

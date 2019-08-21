@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace RentBikes.Core.BLL
 {
-    interface Ibll_Base<T> where T : class
+    public interface Ibll_Base<T> where T : class
     {
         IEnumerable<T> GetAll();
 
