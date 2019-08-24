@@ -12,108 +12,126 @@ using RentBikes.Persistence;
 
 namespace RentBikes.Controllers
 {
-    public class StationsController : Controller
+    public class ClientsController : Controller
     {
-        private Ibll_Base<Station> Biz
+        private Ibll_Base<Client> Biz
         {
-            get { return new bll_Base<Station>(); }
+            get { return new bll_Base<Client>(); }
         }
 
-        // GET: Stations
+        //private Ibll_Base<State> BizStates
+        //{
+        //    get { return new bll_Base<State>(); }
+        //}
+
+        //private SelectList States(int? stateID)
+        //{
+        //    SelectList list = null;
+        //    if(stateID == null)
+        //        list = new SelectList(BizStates.GetAll(), "stateID", "description");
+        //    else
+        //        list = new SelectList(BizStates.GetAll(), "stateID", "description", stateID);
+
+        //    return list;
+        //}
+
+        // GET: Clients
         public ActionResult Index()
         {
-            //var stations = db.Stations.Include(s => s.State);
+            //var clients = db.Clients.Include(s => s.State);
             return View(Biz.GetAll());
         }
 
-        // GET: Stations/Details/5
+        // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+
+            Client entity = Biz.Get(id ?? 0);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(entity);
         }
 
-        // GET: Stations/Create
+        // GET: Clients/Create
         public ActionResult Create()
         {
             //ViewBag.stateID = new SelectList(db.States, "stateID", "description");
+            //ViewBag.stateID = States(null);
             ViewBag.stateID = helper.States(null);
             return View();
         }
 
-        // POST: Stations/Create
+        // POST: Clients/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "stationID,description,address,stateID")] Station station)
+        public ActionResult Create([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
         {
             if (ModelState.IsValid)
             {
-                Biz.Create(station);
+                Biz.Create(client);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.stateID = helper.States(station.stateID);
-            return View(station);
+            ViewBag.stateID = helper.States(client.stateID);
+            return View(client);
         }
 
-        // GET: Stations/Edit/5
+        // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+            Client client = Biz.Get(id ?? 0);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.stateID = helper.States(station.stateID);
-            return View(station);
+            ViewBag.stateID = helper.States(client.stateID);
+            return View(client);
         }
 
-        // POST: Stations/Edit/5
+        // POST: Clients/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "stationID,description,address,stateID")] Station station)
+        public ActionResult Edit([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
         {
             if (ModelState.IsValid)
             {
-                Biz.Edit(station);
+                Biz.Edit(client);
                 return RedirectToAction("Index");
             }
-            ViewBag.stateID = helper.States(station.stateID);
-            return View(station);
+            ViewBag.stateID = helper.States(client.stateID);
+            return View(client);
         }
 
-        // GET: Stations/Delete/5
+        // GET: Clients/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+            Client client = Biz.Get(id ?? 0);
+            if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(client);
         }
 
-        // POST: Stations/Delete/5
+        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

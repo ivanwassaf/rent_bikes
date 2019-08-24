@@ -11,6 +11,7 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class Price
@@ -20,7 +21,9 @@ namespace RentBikes.Core.Domain
             this.Rental_Detail = new HashSet<RentalDetail>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int priceID { get; set; }
         public decimal rentalPrice { get; set; }
         public string description { get; set; }

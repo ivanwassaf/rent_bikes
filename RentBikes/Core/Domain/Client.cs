@@ -11,6 +11,8 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Client
     {
@@ -19,12 +21,15 @@ namespace RentBikes.Core.Domain
             this.Rental = new HashSet<Rental>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int clientID { get; set; }
         public string name { get; set; }
-        public string password { get; set; }
+        public string identification { get; set; }
         public string address { get; set; }
-        public int state_id { get; set; }
+        public int stateID { get; set; }
 
         public virtual ICollection<Rental> Rental { get; set; }
+        public virtual State State { get; set; }
     }
 }

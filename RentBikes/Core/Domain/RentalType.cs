@@ -11,6 +11,8 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class RentalType
     {
@@ -19,6 +21,8 @@ namespace RentBikes.Core.Domain
             this.Rental = new HashSet<Rental>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int rentalTypeID { get; set; }
         public string description { get; set; }
         public decimal discount { get; set; }

@@ -11,12 +11,16 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Vehicle
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int vehicleID { get; set; }
         public string description { get; set; }
-        public int vehicletypeID { get; set; }
+        public int vehicleTypeID { get; set; }
         public int stateID { get; set; }
         public string serie { get; set; }
 

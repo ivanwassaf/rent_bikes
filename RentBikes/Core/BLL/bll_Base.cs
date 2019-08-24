@@ -14,6 +14,8 @@ namespace RentBikes.Core.BLL
             get { return new Context(); }
         }
 
+        //UnitOfWork uofw = new UnitOfWork(new Context());
+
         private IRepository<T> Repo
         {
             get { return new Repository<T>(db); }

@@ -3,7 +3,7 @@ using RentBikes.Core.Repositories;
 using RentBikes.Persistence;
 using RentBikes.Persistence.Repositories;
 
-namespace Queries.Persistence
+namespace RentBikes.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {

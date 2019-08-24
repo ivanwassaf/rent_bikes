@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
@@ -151,14 +152,22 @@
     <Compile Include="Core\Domain\Station.cs" />
     <Compile Include="Core\Domain\Vehicle.cs" />
     <Compile Include="Core\Domain\VehicleType.cs" />
-    <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
+    <Compile Include="Core\BLL\helper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908221724356_Initial.cs" />
+    <Compile Include="Migrations\201908221724356_Initial.Designer.cs">
+      <DependentUpon>201908221724356_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908221732080_States.cs" />
+    <Compile Include="Migrations\201908221732080_States.Designer.cs">
+      <DependentUpon>201908221732080_States.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Context.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
-    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +223,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -237,6 +248,21 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Prices\Create.cshtml" />
+    <Content Include="Views\Prices\Delete.cshtml" />
+    <Content Include="Views\Prices\Details.cshtml" />
+    <Content Include="Views\Prices\Edit.cshtml" />
+    <Content Include="Views\Prices\Index.cshtml" />
+    <Content Include="Views\Stations\Create.cshtml" />
+    <Content Include="Views\Stations\Delete.cshtml" />
+    <Content Include="Views\Stations\Details.cshtml" />
+    <Content Include="Views\Stations\Edit.cshtml" />
+    <Content Include="Views\Stations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -249,6 +275,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908221724356_Initial.resx">
+      <DependentUpon>201908221724356_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908221732080_States.resx">
+      <DependentUpon>201908221732080_States.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

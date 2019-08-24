@@ -11,6 +11,8 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class State
     {
@@ -21,6 +23,8 @@ namespace RentBikes.Core.Domain
             this.Vehicle = new HashSet<Vehicle>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int stateID { get; set; }
         public string description { get; set; }
 

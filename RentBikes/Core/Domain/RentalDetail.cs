@@ -11,9 +11,13 @@ namespace RentBikes.Core.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class RentalDetail
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int rentalDetailID { get; set; }
         public int rentalID { get; set; }
         public int vehicleID { get; set; }
@@ -24,5 +28,6 @@ namespace RentBikes.Core.Domain
 
         public virtual Price Price { get; set; }
         public virtual Rental Rental { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

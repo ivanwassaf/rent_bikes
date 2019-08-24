@@ -26,5 +26,7 @@ namespace RentBikes.Persistence
         public System.Data.Entity.DbSet<RentBikes.Core.Domain.Station> Stations { get; set; }
 
         public System.Data.Entity.DbSet<RentBikes.Core.Domain.State> States { get; set; }
+
+        public System.Data.Entity.DbSet<RentBikes.Core.Domain.Client> Clients { get; set; }
     }
 }
