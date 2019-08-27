@@ -5,110 +5,107 @@ using RentBikes.Core.Domain;
 
 namespace RentBikes.Controllers
 {
-    public class ClientsController : Controller
+    public class VehicleTypesController : Controller
     {
-        private IBll_Client Biz
+        private IBll_VehicleType Biz
         {
-            get { return new Bll_Client(); }
+            get { return new Bll_VehicleType(); }
         }
 
-        // GET: Clients
+        // GET: VehicleTypes
         public ActionResult Index()
         {
-            //var clients = db.Clients.Include(s => s.State);
+            //var vehicleTypes = db.VehicleTypes.Include(v => v.State);
             return View(Biz.GetAll());
         }
 
-        // GET: Clients/Details/5
+        // GET: VehicleTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Client entity = Biz.Get(id ?? 0);
-            if (entity == null)
+            VehicleType vehicleType = Biz.Get(id ?? 0);
+            if (vehicleType == null)
             {
                 return HttpNotFound();
             }
-            return View(entity);
+            return View(vehicleType);
         }
 
-        // GET: Clients/Create
+        // GET: VehicleTypes/Create
         public ActionResult Create()
         {
-            //ViewBag.stateID = new SelectList(db.States, "stateID", "description");
-            //ViewBag.stateID = States(null);
             ViewBag.stateID = Helper.States(null);
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: VehicleTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
+        public ActionResult Create([Bind(Include = "vehicleTypeID,description,stateID")] VehicleType vehicleType)
         {
             if (ModelState.IsValid)
             {
-                Biz.Create(client);
+                Biz.Create(vehicleType);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            ViewBag.stateID = Helper.States(vehicleType.stateID);
+            return View(vehicleType);
         }
 
-        // GET: Clients/Edit/5
+        // GET: VehicleTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = Biz.Get(id ?? 0);
-            if (client == null)
+            VehicleType vehicleType = Biz.Get(id ?? 0);
+            if (vehicleType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            ViewBag.stateID = Helper.States(vehicleType.stateID);
+            return View(vehicleType);
         }
 
-        // POST: Clients/Edit/5
+        // POST: VehicleTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
+        public ActionResult Edit([Bind(Include = "vehicleTypeID,description,stateID")] VehicleType vehicleType)
         {
             if (ModelState.IsValid)
             {
-                Biz.Edit(client);
+                Biz.Edit(vehicleType);
                 return RedirectToAction("Index");
             }
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            ViewBag.stateID = Helper.States(vehicleType.stateID);
+            return View(vehicleType);
         }
 
-        // GET: Clients/Delete/5
+        // GET: VehicleTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = Biz.Get(id ?? 0);
-            if (client == null)
+            VehicleType vehicleType = Biz.Get(id ?? 0);
+            if (vehicleType == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(vehicleType);
         }
 
-        // POST: Clients/Delete/5
+        // POST: VehicleTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

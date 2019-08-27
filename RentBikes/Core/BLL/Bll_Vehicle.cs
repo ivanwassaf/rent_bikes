@@ -2,8 +2,8 @@
 
 namespace RentBikes.Core.BLL
 {
-    public interface IBll_Price : IBll_Base<Price>
+    public class Bll_Vehicle : Bll_Base<Vehicle>, IBll_Vehicle
     {
-
+        
     }
 }

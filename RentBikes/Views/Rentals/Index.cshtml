@@ -1,0 +1,75 @@
+﻿@model IEnumerable<RentBikes.Core.Domain.Rental>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentalType.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Station.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.from)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.to)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subtotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentalType.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Station.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.from)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.to)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subtotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.rentalID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.rentalID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.rentalID })
+        </td>
+    </tr>
+}
+
+</table>

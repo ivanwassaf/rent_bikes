@@ -7,9 +7,11 @@ using System.Linq.Expressions;
 
 namespace RentBikes.Core.BLL
 {
-    public class bll_Base<T> : Ibll_Base<T> where T : class 
+    public class Bll_Base<T> : IBll_Base<T> where T : class 
     {
-        private static Context db
+        IRepository<T> repo = null;
+
+        protected static Context Db
         {
             get { return new Context(); }
         }
@@ -18,10 +20,14 @@ namespace RentBikes.Core.BLL
 
         private IRepository<T> Repo
         {
-            get { return new Repository<T>(db); }
+            get
+            {
+                if (repo == null) repo = new Repository<T>(Db);
+                return repo;
+            }
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return Repo.GetAll();
         }

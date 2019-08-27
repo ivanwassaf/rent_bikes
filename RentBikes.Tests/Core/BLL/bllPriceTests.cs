@@ -7,33 +7,34 @@ using RentBikes.Core.Domain;
 namespace RentBikes.Tests.Core.BLL
 {
     [TestClass]
-    public class bllPriceTests
+    public class BllPriceTests
     {
-        private readonly IBll_Price Biz = new bll_Price();
+        private readonly IBll_Price Biz = new Bll_Price();
 
-        private Price mock
+        private Price Getmock()
         {
-            get
+            Price price = new Price
             {
-                Price price = new Price();
-                price.rentalPrice = new Random().Next();
-                price.description = "TEST " + DateTime.Now.ToString();
-                price.hours = new Random().Next();
-                return price;
-            }
-            set { }
+                rentalPrice = new Random().Next(),
+                description = "TEST " + DateTime.Now.ToString(),
+                hours = new Random().Next()
+            };
+            return price;
         }
+
+        //private void Setmock(Price value)
+        //{ }
 
         [TestMethod]
         public void Create()
         {
             try
             {
-                Biz.Create(mock);
+                Biz.Create(Getmock());
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -46,7 +47,7 @@ namespace RentBikes.Tests.Core.BLL
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -59,7 +60,7 @@ namespace RentBikes.Tests.Core.BLL
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -73,7 +74,7 @@ namespace RentBikes.Tests.Core.BLL
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -84,11 +85,11 @@ namespace RentBikes.Tests.Core.BLL
             {
                 Price mock1 = Biz.GetAll().FirstOrDefault();
                 mock1.description = "TEST " + DateTime.Now.ToString();
-                Biz.Edit(mock);
+                Biz.Edit(mock1);
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -101,7 +102,7 @@ namespace RentBikes.Tests.Core.BLL
             }
             catch (Exception ex)
             {
-                Assert.Fail();
+                Assert.Fail(ex.Message);
             }
         }
     }

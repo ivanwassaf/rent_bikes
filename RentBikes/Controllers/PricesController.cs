@@ -1,9 +1,5 @@
 ﻿using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
-using RentBikes.Core.Repositories;
-using RentBikes.Persistence;
-using RentBikes.Persistence.Repositories;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -11,9 +7,9 @@ namespace RentBikes.Controllers
 {
     public class PricesController : Controller
     {
-        private Ibll_Base<Price> Biz
+        private IBll_Price Biz
         {
-            get { return new bll_Base<Price>(); }
+            get { return new Bll_Price(); }
         }
 
         // GET: Prices

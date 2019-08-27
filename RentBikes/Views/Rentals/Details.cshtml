@@ -1,0 +1,82 @@
+﻿@model RentBikes.Core.Domain.Rental
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rental</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalType.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentalType.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Station.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Station.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.to)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subtotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subtotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.rentalID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

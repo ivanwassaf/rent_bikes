@@ -1,114 +1,113 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
+using RentBikes.Persistence;
 
 namespace RentBikes.Controllers
 {
-    public class ClientsController : Controller
+    public class RentalTypesController : Controller
     {
-        private IBll_Client Biz
+        private IBll_RentalType Biz
         {
-            get { return new Bll_Client(); }
+            get { return new Bll_RentalType(); }
         }
 
-        // GET: Clients
+        // GET: RentalTypes
         public ActionResult Index()
         {
-            //var clients = db.Clients.Include(s => s.State);
             return View(Biz.GetAll());
         }
 
-        // GET: Clients/Details/5
+        // GET: RentalTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Client entity = Biz.Get(id ?? 0);
-            if (entity == null)
+            RentalType rentalType = Biz.Get(id ?? 0);
+            if (rentalType == null)
             {
                 return HttpNotFound();
             }
-            return View(entity);
+            return View(rentalType);
         }
 
-        // GET: Clients/Create
+        // GET: RentalTypes/Create
         public ActionResult Create()
         {
-            //ViewBag.stateID = new SelectList(db.States, "stateID", "description");
-            //ViewBag.stateID = States(null);
-            ViewBag.stateID = Helper.States(null);
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: RentalTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
+        public ActionResult Create([Bind(Include = "rentalTypeID,description,discount")] RentalType rentalType)
         {
             if (ModelState.IsValid)
             {
-                Biz.Create(client);
+                Biz.Create(rentalType);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            return View(rentalType);
         }
 
-        // GET: Clients/Edit/5
+        // GET: RentalTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = Biz.Get(id ?? 0);
-            if (client == null)
+            RentalType rentalType = Biz.Get(id ?? 0);
+            if (rentalType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            return View(rentalType);
         }
 
-        // POST: Clients/Edit/5
+        // POST: RentalTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "clientID,name,identification,address,stateID")] Client client)
+        public ActionResult Edit([Bind(Include = "rentalTypeID,description,discount")] RentalType rentalType)
         {
             if (ModelState.IsValid)
             {
-                Biz.Edit(client);
+                Biz.Edit(rentalType);
                 return RedirectToAction("Index");
             }
-            ViewBag.stateID = Helper.States(client.stateID);
-            return View(client);
+            return View(rentalType);
         }
 
-        // GET: Clients/Delete/5
+        // GET: RentalTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = Biz.Get(id ?? 0);
-            if (client == null)
+            RentalType rentalType = Biz.Get(id ?? 0);
+            if (rentalType == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(rentalType);
         }
 
-        // POST: Clients/Delete/5
+        // POST: RentalTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

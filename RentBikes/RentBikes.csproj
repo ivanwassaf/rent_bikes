@@ -138,11 +138,29 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="Controllers\RentalsController.cs" />
+    <Compile Include="Controllers\RentalTypesController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
+    <Compile Include="Controllers\VehiclesController.cs" />
+    <Compile Include="Controllers\VehicleTypesController.cs" />
     <Compile Include="Core\BLL\bll_Base.cs" />
+    <Compile Include="Core\BLL\Bll_Client.cs" />
     <Compile Include="Core\BLL\bll_Price.cs" />
+    <Compile Include="Core\BLL\Bll_Rental.cs" />
+    <Compile Include="Core\BLL\Bll_RentalType.cs" />
+    <Compile Include="Core\BLL\Bll_State.cs" />
+    <Compile Include="Core\BLL\Bll_Station.cs" />
+    <Compile Include="Core\BLL\Bll_Vehicle.cs" />
+    <Compile Include="Core\BLL\Bll_VehicleType.cs" />
     <Compile Include="Core\BLL\Ibll_Base.cs" />
+    <Compile Include="Core\BLL\IBll_Client.cs" />
     <Compile Include="Core\BLL\IBll_Price.cs" />
+    <Compile Include="Core\BLL\IBll_Rental.cs" />
+    <Compile Include="Core\BLL\IBll_RentalType.cs" />
+    <Compile Include="Core\BLL\IBll_State.cs" />
+    <Compile Include="Core\BLL\IBll_Station.cs" />
+    <Compile Include="Core\BLL\IBll_Vehicle.cs" />
+    <Compile Include="Core\BLL\IBll_VehicleType.cs" />
     <Compile Include="Core\Domain\Client.cs" />
     <Compile Include="Core\Domain\Price.cs" />
     <Compile Include="Core\Domain\Rental.cs" />
@@ -168,6 +186,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Context.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
+    <Compile Include="Persistence\Repositories\RepositoryRental.cs" />
+    <Compile Include="Persistence\Repositories\RepositoryStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Persistence\EntityConfigurations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

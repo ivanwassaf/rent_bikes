@@ -10,7 +10,6 @@ namespace RentBikes.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "RentBikes.Persistence.Context";
         }
 
         protected override void Seed(RentBikes.Persistence.Context context)

@@ -1,0 +1,50 @@
+﻿@model RentBikes.Core.Domain.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.State.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleType.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleType.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.vehicleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

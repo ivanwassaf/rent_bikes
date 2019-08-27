@@ -12,108 +12,121 @@ using RentBikes.Persistence;
 
 namespace RentBikes.Controllers
 {
-    public class StationsController : Controller
+    public class RentalsController : Controller
     {
-        private IBll_Station Biz
+        //private Context db = new Context();
+
+        private IBll_Rental Biz
         {
-            get { return new Bll_Station(); }
+            get { return new Bll_Rental(); }
         }
 
-        // GET: Stations
+        // GET: Rentals
         public ActionResult Index()
         {
-            //var stations = db.Stations.Include(s => s.State);
+            //var rentals = db.Rentals.Include(r => r.Client).Include(r => r.RentalType).Include(r => r.State).Include(r => r.Station);
             return View(Biz.GetAll());
         }
 
-        // GET: Stations/Details/5
+        // GET: Rentals/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+            Rental rental = Biz.Get(id ?? 0);
+            if (rental == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(rental);
         }
 
-        // GET: Stations/Create
+        // GET: Rentals/Create
         public ActionResult Create()
         {
-            //ViewBag.stateID = new SelectList(db.States, "stateID", "description");
+            ViewBag.clientID = Helper.Clients(null);
+            ViewBag.rentalTypeID = Helper.RentalTypes(null);
             ViewBag.stateID = Helper.States(null);
+            ViewBag.stationID = Helper.Stations(null);
             return View();
         }
 
-        // POST: Stations/Create
+        // POST: Rentals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "stationID,description,address,stateID")] Station station)
+        public ActionResult Create([Bind(Include = "rentalID,from,to,stateID,stationID,rentalTypeID,subtotal,total,clientID")] Rental rental)
         {
             if (ModelState.IsValid)
             {
-                Biz.Create(station);
+                Biz.Create(rental);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.stateID = Helper.States(station.stateID);
-            return View(station);
+            ViewBag.clientID = Helper.Clients(rental.clientID);
+            ViewBag.rentalTypeID = Helper.RentalTypes(rental.rentalTypeID);
+            ViewBag.stateID = Helper.States(rental.stateID);
+            ViewBag.stationID = Helper.Stations(rental.stationID);
+            return View(rental);
         }
 
-        // GET: Stations/Edit/5
+        // GET: Rentals/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+            Rental rental = Biz.Get(id ?? 0);
+            if (rental == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.stateID = Helper.States(station.stateID);
-            return View(station);
+            ViewBag.clientID = Helper.Clients(rental.clientID);
+            ViewBag.rentalTypeID = Helper.RentalTypes(rental.rentalTypeID);
+            ViewBag.stateID = Helper.States(rental.stateID);
+            ViewBag.stationID = Helper.Stations(rental.stationID);
+            return View(rental);
         }
 
-        // POST: Stations/Edit/5
+        // POST: Rentals/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "stationID,description,address,stateID")] Station station)
+        public ActionResult Edit([Bind(Include = "rentalID,from,to,stateID,stationID,rentalTypeID,subtotal,total,clientID")] Rental rental)
         {
             if (ModelState.IsValid)
             {
-                Biz.Edit(station);
+                Biz.Edit(rental);
                 return RedirectToAction("Index");
             }
-            ViewBag.stateID = Helper.States(station.stateID);
-            return View(station);
+            ViewBag.clientID = Helper.Clients(rental.clientID);
+            ViewBag.rentalTypeID = Helper.RentalTypes(rental.rentalTypeID);
+            ViewBag.stateID = Helper.States(rental.stateID);
+            ViewBag.stationID = Helper.Stations(rental.stationID);
+            return View(rental);
         }
 
-        // GET: Stations/Delete/5
+        // GET: Rentals/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = Biz.Get(id ?? 0);
-            if (station == null)
+            Rental rental = Biz.Get(id ?? 0);
+            if (rental == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(rental);
         }
 
-        // POST: Stations/Delete/5
+        // POST: Rentals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
