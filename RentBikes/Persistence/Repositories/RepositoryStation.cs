@@ -17,7 +17,7 @@ namespace RentBikes.Persistence.Repositories
 
         public new IEnumerable<Station> GetAll()
         {
-            return Context.Set<Station>().Include(x => x.State).ToList();
+            return Context.Set<Station>().Include(x => x.State).Include(x => x.Rental).ToList();
         }
 
         

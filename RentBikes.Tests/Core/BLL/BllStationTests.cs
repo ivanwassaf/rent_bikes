@@ -71,7 +71,8 @@ namespace RentBikes.Tests.Core.BLL
             try
             {
                 Station mock1 = Biz.GetAll().FirstOrDefault();
-                Biz.Delete(mock1.stationID);
+                if (mock1.Rental.Count() == 0)
+                    Biz.Delete(mock1.stationID);
             }
             catch (Exception ex)
             {
@@ -86,7 +87,8 @@ namespace RentBikes.Tests.Core.BLL
             {
                 Station mock1 = Biz.GetAll().FirstOrDefault();
                 mock1.description = "TEST " + DateTime.Now.ToString();
-                Biz.Edit(mock1);
+                if(mock1.Rental.Count() == 0)
+                    Biz.Edit(mock1);
             }
             catch (Exception ex)
             {
