@@ -7,20 +7,20 @@ using RentBikes.Core.Domain;
 namespace RentBikes.Tests.Core.BLL
 {
     [TestClass]
-    public class BllPriceTests
+    public class BllStationTests
     {
-        private readonly IBll_Client Biz = new Bll_Client();
+        private readonly IBll_Station Biz = new Bll_Station();
 
-        private Client Getmock()
+        private Station Getmock()
         {
-            Client client = new Client
+            Station station = new Station
             {
-                identification = new Random().Next().ToString(),
-                name = "TEST " + DateTime.Now.ToString(),
+                stationID = new Random().Next(),
+                description = "TEST " + DateTime.Now.ToString(),
                 address = new Random().Next().ToString(),
                 stateID = 1
             };
-            return client;
+            return station;
         }
 
         //private void Setmock(Price value)
@@ -70,8 +70,8 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Client mock1 = Biz.GetAll().FirstOrDefault();
-                Biz.Delete(mock1.clientID);
+                Station mock1 = Biz.GetAll().FirstOrDefault();
+                Biz.Delete(mock1.stationID);
             }
             catch (Exception ex)
             {
@@ -84,8 +84,8 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Client mock1 = Biz.GetAll().FirstOrDefault();
-                mock1.name = "TEST " + DateTime.Now.ToString();
+                Station mock1 = Biz.GetAll().FirstOrDefault();
+                mock1.description = "TEST " + DateTime.Now.ToString();
                 Biz.Edit(mock1);
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Biz.Details(x => x.clientID > 0);
+                Biz.Details(x => x.stationID > 0);
             }
             catch (Exception ex)
             {
