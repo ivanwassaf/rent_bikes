@@ -143,7 +143,7 @@
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Controllers\VehicleTypesController.cs" />
-    <Compile Include="Core\BLL\bll_Base.cs" />
+    <Compile Include="Core\BLL\Bll_Base.cs" />
     <Compile Include="Core\BLL\Bll_Client.cs" />
     <Compile Include="Core\BLL\bll_Price.cs" />
     <Compile Include="Core\BLL\Bll_Rental.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="Core\BLL\Bll_Station.cs" />
     <Compile Include="Core\BLL\Bll_Vehicle.cs" />
     <Compile Include="Core\BLL\Bll_VehicleType.cs" />
-    <Compile Include="Core\BLL\Ibll_Base.cs" />
+    <Compile Include="Core\BLL\IBll_Base.cs" />
     <Compile Include="Core\BLL\IBll_Client.cs" />
     <Compile Include="Core\BLL\IBll_Price.cs" />
     <Compile Include="Core\BLL\IBll_Rental.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Core\Domain\Vehicle.cs" />
     <Compile Include="Core\Domain\VehicleType.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
-    <Compile Include="Core\BLL\helper.cs" />
+    <Compile Include="Core\BLL\Helper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -283,6 +283,26 @@
     <Content Include="Views\Stations\Details.cshtml" />
     <Content Include="Views\Stations\Edit.cshtml" />
     <Content Include="Views\Stations\Index.cshtml" />
+    <Content Include="Views\Rentals\Create.cshtml" />
+    <Content Include="Views\Rentals\Delete.cshtml" />
+    <Content Include="Views\Rentals\Details.cshtml" />
+    <Content Include="Views\Rentals\Edit.cshtml" />
+    <Content Include="Views\Rentals\Index.cshtml" />
+    <Content Include="Views\RentalTypes\Create.cshtml" />
+    <Content Include="Views\RentalTypes\Delete.cshtml" />
+    <Content Include="Views\RentalTypes\Details.cshtml" />
+    <Content Include="Views\RentalTypes\Edit.cshtml" />
+    <Content Include="Views\RentalTypes\Index.cshtml" />
+    <Content Include="Views\Vehicles\Create.cshtml" />
+    <Content Include="Views\Vehicles\Delete.cshtml" />
+    <Content Include="Views\Vehicles\Details.cshtml" />
+    <Content Include="Views\Vehicles\Edit.cshtml" />
+    <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\VehicleTypes\Create.cshtml" />
+    <Content Include="Views\VehicleTypes\Delete.cshtml" />
+    <Content Include="Views\VehicleTypes\Details.cshtml" />
+    <Content Include="Views\VehicleTypes\Edit.cshtml" />
+    <Content Include="Views\VehicleTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
