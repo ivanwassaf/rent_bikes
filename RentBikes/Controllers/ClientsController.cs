@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Data.SqlClient;
+using System.Net;
 using System.Web.Mvc;
 using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
@@ -113,7 +115,17 @@ namespace RentBikes.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Biz.Delete(id);
+            try
+            {
+                Biz.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                Delete(id);
+                ViewBag.Message = ex.Message + " " + ex.InnerException?.InnerException?.Message;
+                return View();
+            }
+            
             return RedirectToAction("Index");
         }
 

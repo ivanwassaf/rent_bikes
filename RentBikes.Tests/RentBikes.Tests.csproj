@@ -90,8 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BLL\BllStationTests.cs" />
-    <Compile Include="Core\BLL\BllClientTests.cs" />
     <Compile Include="Core\BLL\BllPriceTests.cs" />
+    <Compile Include="Core\BLL\BllClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

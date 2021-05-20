@@ -1,9 +1,9 @@
 ﻿using RentBikes.Core.Domain;
 using System.Collections.Generic;
 
-namespace RentBikes.Core.BLL
+namespace RentBikes.Core.Repositories
 {
-    public interface IBll_Client : IBll_Base<Client>
+    public interface IRepositoryClient : IRepository<Client>
     {
         IEnumerable<Client> GetAllFull();
     }

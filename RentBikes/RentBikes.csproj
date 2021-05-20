@@ -172,6 +172,7 @@
     <Compile Include="Core\Domain\VehicleType.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Core\BLL\Helper.cs" />
+    <Compile Include="Core\Repositories\IRepositoryClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,6 +187,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Context.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
+    <Compile Include="Persistence\Repositories\RepositoryClient.cs" />
     <Compile Include="Persistence\Repositories\RepositoryRental.cs" />
     <Compile Include="Persistence\Repositories\RepositoryStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,17 +9,18 @@ namespace RentBikes.Tests.Core.BLL
     [TestClass]
     public class BllClientTests
     {
-        private readonly IBll_Price Biz = new Bll_Price();
+        private readonly IBll_Client Biz = new Bll_Client();
 
-        private Price Getmock()
+        private Client Getmock()
         {
-            Price price = new Price
+            Client client = new Client
             {
-                rentalPrice = new Random().Next(),
-                description = "TEST " + DateTime.Now.ToString(),
-                hours = new Random().Next()
+                identification = new Random().Next().ToString(),
+                name = "TEST " + DateTime.Now.ToString(),
+                address = new Random().Next().ToString(),
+                stateID = 1
             };
-            return price;
+            return client;
         }
 
         //private void Setmock(Price value)
@@ -69,12 +70,14 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Price mock1 = Biz.GetAll().FirstOrDefault();
-                Biz.Delete(mock1.priceID);
+                //Debi agregar el metodo GetAllFull para que traiga las relaciones
+                //y poder verificar si no habian FK contra Rental sino pinchaba
+                Client mock1 = Biz.GetAllFull().FirstOrDefault(x => x.Rental.Count == 0);
+                Biz.Delete(mock1.clientID);
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message);
+                Assert.Fail(ex.Message +  " - " + ex.InnerException?.Message);
             }
         }
 
@@ -83,8 +86,8 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Price mock1 = Biz.GetAll().FirstOrDefault();
-                mock1.description = "TEST " + DateTime.Now.ToString();
+                Client mock1 = Biz.GetAll().OrderByDescending(x => x.clientID).FirstOrDefault();
+                mock1.name = "TEST " + DateTime.Now.ToString();
                 Biz.Edit(mock1);
             }
             catch (Exception ex)
@@ -98,7 +101,7 @@ namespace RentBikes.Tests.Core.BLL
         {
             try
             {
-                Biz.Details(x => x.priceID > 0);
+                Biz.Details(x => x.clientID > 0);
             }
             catch (Exception ex)
             {

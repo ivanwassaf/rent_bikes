@@ -44,5 +44,13 @@
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
+        <div>
+            @if (ViewBag.Message != null)
+            {
+            <p style="color:red">
+                @ViewBag.Message = "";
+            </p>
+            }
+        </div>
     }
 </div>
