@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data.SqlClient;
+﻿using RentBikes.Core.BLL;
+using RentBikes.Core.Domain;
+using System;
 using System.Net;
 using System.Web.Mvc;
-using RentBikes.Core.BLL;
-using RentBikes.Core.Domain;
 
 namespace RentBikes.Controllers
 {
@@ -125,7 +124,7 @@ namespace RentBikes.Controllers
                 ViewBag.Message = ex.Message + " " + ex.InnerException?.InnerException?.Message;
                 return View();
             }
-            
+
             return RedirectToAction("Index");
         }
 

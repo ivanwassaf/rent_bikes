@@ -1,5 +1,4 @@
 ﻿using RentBikes.Core.Domain;
-using System;
 using System.Web.Mvc;
 
 namespace RentBikes.Core.BLL
@@ -73,7 +72,7 @@ namespace RentBikes.Core.BLL
                 list = new SelectList(BizClients.GetAll(), "clientID", "name", clientID);
 
             return list;
-            
+
         }
 
         internal static dynamic Stations(int? stationID)
@@ -85,7 +84,7 @@ namespace RentBikes.Core.BLL
                 list = new SelectList(BizStations.GetAll(), "stationID", "description", stationID);
 
             return list;
-            
+
         }
     }
 }

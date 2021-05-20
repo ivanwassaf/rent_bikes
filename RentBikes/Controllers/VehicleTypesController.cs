@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Web.Mvc;
-using RentBikes.Core.BLL;
+﻿using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
+using System.Net;
+using System.Web.Mvc;
 
 namespace RentBikes.Controllers
 {

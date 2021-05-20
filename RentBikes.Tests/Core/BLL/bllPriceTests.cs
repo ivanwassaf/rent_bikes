@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
+using System;
+using System.Linq;
 
 namespace RentBikes.Tests.Core.BLL
 {

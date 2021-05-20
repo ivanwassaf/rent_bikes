@@ -2,7 +2,6 @@
 using RentBikes.Core.Repositories;
 using RentBikes.Persistence.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RentBikes.Core.BLL
 {

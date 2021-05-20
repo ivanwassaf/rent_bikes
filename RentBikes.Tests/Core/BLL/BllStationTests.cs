@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
+using System;
+using System.Linq;
 
 namespace RentBikes.Tests.Core.BLL
 {
@@ -87,7 +87,7 @@ namespace RentBikes.Tests.Core.BLL
             {
                 Station mock1 = Biz.GetAll().FirstOrDefault();
                 mock1.description = "TEST " + DateTime.Now.ToString();
-                if(mock1.Rental.Count() == 0)
+                if (mock1.Rental.Count() == 0)
                     Biz.Edit(mock1);
             }
             catch (Exception ex)

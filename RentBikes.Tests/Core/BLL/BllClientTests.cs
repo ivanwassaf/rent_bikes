@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RentBikes.Core.BLL;
 using RentBikes.Core.Domain;
+using System;
+using System.Linq;
 
 namespace RentBikes.Tests.Core.BLL
 {
@@ -77,7 +77,7 @@ namespace RentBikes.Tests.Core.BLL
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message +  " - " + ex.InnerException?.Message);
+                Assert.Fail(ex.Message + " - " + ex.InnerException?.Message);
             }
         }
 

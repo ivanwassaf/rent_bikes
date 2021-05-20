@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace RentBikes.Core.BLL
 {
-    public class Bll_Base<T> : IBll_Base<T> where T : class 
+    public class Bll_Base<T> : IBll_Base<T> where T : class
     {
         IRepository<T> repo = null;
 

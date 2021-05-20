@@ -20,6 +20,6 @@ namespace RentBikes.Persistence.Repositories
             return Context.Set<Station>().Include(x => x.State).Include(x => x.Rental).ToList();
         }
 
-        
+
     }
 }
